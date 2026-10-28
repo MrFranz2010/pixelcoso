@@ -4,7 +4,7 @@ import { SUPABASE_URL, SUPABASE_KEY } from './supabase-config.js';
 const ROOM = 'generale';
 const HISTORY = 50;
 const MAX_SHOWN = 200;
-const NAME_KEY = 'epstein-island:chat-name';
+const NAME_KEY = 'pixel-island:chat-name';
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 const listEl = document.getElementById('chatList');
