@@ -15,8 +15,8 @@ const emptyFavorites = document.getElementById('emptyFavorites');
 const catalogStatus = document.getElementById('catalogStatus');
 
 const storageKeys = {
-  favorites: 'epstein-island:favorites',
-  recent: 'epstein-island:recent',
+  favorites: 'pixel-island:favorites',
+  recent: 'pixel-island:recent',
 };
 const gameBySlug = new Map(games.map((game) => [game.slug, game]));
 const inputLabels = {

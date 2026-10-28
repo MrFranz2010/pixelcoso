@@ -1,11 +1,16 @@
 (() => {
-  const storageKey = 'epstein-theme';
+  const storageKey = 'pixel-theme';
   const themeColors = { light: '#f1ebdf', dark: '#15120e' };
   const icons = {
     dark: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></svg>',
     light: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v2.5M12 20v2.5M1.5 12H4M20 12h2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg>',
   };
   const root = document.documentElement;
+  const favicon = document.createElement('link');
+  favicon.rel = 'icon';
+  favicon.type = 'image/svg+xml';
+  favicon.href = new URL('../favicon.svg', document.currentScript.src).href;
+  document.head.append(favicon);
   const media = window.matchMedia('(prefers-color-scheme: dark)');
   let button;
 

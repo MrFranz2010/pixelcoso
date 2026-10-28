@@ -73,7 +73,8 @@
 <body>
 
   <div id="configPanel" class="config-panel">
-    <h2>Configura Emulatore</h2>
+    <h2>Configura emulatore</h2>
+    <p style="font-size:.85rem;line-height:1.5;">Nessuna ROM è inclusa. Carica solo copie che possiedi e che sei autorizzato a utilizzare.</p>
     
     <div class="config-group">
       <label for="consoleSelect">Console / Sistema:</label>
@@ -105,7 +106,8 @@
       <small id="romName" style="color: #aaa; display: block; margin-top: 5px;"></small>
     </div>
 
-    <button id="startBtn" class="btn" disabled>Avvia Gioco</button>
+    <button id="startBtn" class="btn" disabled>Avvia gioco</button>
+    <p style="font-size:.75rem;line-height:1.5;">Motore <a href="https://github.com/EmulatorJS/EmulatorJS" target="_blank" rel="noopener noreferrer" style="color:#8bbcff;">EmulatorJS</a>, licenza GNU GPL-3.0; core e componenti con le rispettive licenze.</p>
   </div>
 
   <div id="game-container" hidden>
@@ -113,7 +115,7 @@
   </div>
 
   <script>
-    const DB_NAME = 'EpsteinMultiGamesDB';
+    const DB_NAME = 'PixelIslandMultiGamesDB';
     const STORE_NAME = 'roms';
 
     function openDB() {

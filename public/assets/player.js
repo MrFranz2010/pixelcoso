@@ -6,7 +6,6 @@ const gameShell = document.getElementById('gameShell');
 const gameFrame = document.getElementById('gameFrame');
 const placeholder = document.getElementById('placeholder');
 const playBtn = document.getElementById('playBtn');
-const externalPlayLink = document.getElementById('externalPlayLink');
 const reloadBtn = document.getElementById('reloadBtn');
 const gameStatus = document.getElementById('gameStatus');
 const loadNotice = document.getElementById('loadNotice');
@@ -50,9 +49,6 @@ async function startGame() {
     if (entryUrl.origin !== location.origin || !entryUrl.pathname.startsWith(buildsPath)) {
       throw new Error('Invalid game entry');
     }
-    if (game.slug === 'polytrack') {
-      entryUrl.searchParams.set('profile', document.body.dataset.polytrackProfile || 'default');
-    }
     const response = await fetch(entryUrl, { method: 'HEAD' });
     if (!loading) return;
     if (!response.ok || !response.headers.get('content-type')?.includes('text/html')) {
@@ -84,7 +80,7 @@ reloadBtn.addEventListener('click', startGame);
 setupFullscreen(gameShell);
 
 if (game) {
-  document.title = `${game.title} — Epstein Island`;
+  document.title = `${game.title} — Pixel Island`;
   document.querySelector('meta[name="description"]').content = game.description;
   document.getElementById('gameTitle').textContent = game.title.toUpperCase();
   const accent = document.createElement('span');
@@ -92,22 +88,6 @@ if (game) {
   accent.textContent = '.';
   document.getElementById('gameTitle').append(accent);
   document.getElementById('gameCategory').textContent = game.category + (game.version ? ` · Versione ${game.version}` : '');
-  if (game.externalUrl && externalPlayLink) {
-    const approvedExternalUrls = {
-      'fpv-freestyle': 'https://lightning8113.itch.io/fpv-freestyle',
-    };
-    const externalUrl = new URL(game.externalUrl);
-    if (externalUrl.href !== approvedExternalUrls[game.slug]) {
-      showError('Il collegamento esterno non è autorizzato.');
-    } else {
-      externalPlayLink.href = externalUrl.href;
-      externalPlayLink.hidden = false;
-      playBtn.hidden = true;
-      document.getElementById('stageTitle').textContent = 'Pronto a volare?';
-      document.getElementById('stageDescription').textContent = game.notes;
-      gameStatus.textContent = 'Giocabile su itch.io';
-    }
-  }
   const gameDescription = document.getElementById('gameDescription');
   if (gameDescription) gameDescription.textContent = game.description;
   gameShell.setAttribute('aria-label', `Area di gioco ${game.title}`);

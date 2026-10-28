@@ -4,38 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#f1ebdf">
-  <meta name="description" content="Cerca musica, scopri le tendenze e salva brani e playlist.">
-  <title>Musica | Epstein island</title>
+  <meta name="description" content="Riproduci musica con i player ufficiali YouTube e Spotify e salva i tuoi collegamenti.">
+  <title>Musica | Pixel Island</title>
   <link rel="stylesheet" href="../assets/site.css">
   <script src="../assets/theme.js"></script>
   <script type="module" src="../assets/music-player.js"></script>
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="../" aria-label="Epstein island, catalogo"><span class="brand-mark" aria-hidden="true">S</span> Epstein island</a>
+    <a class="brand" href="../" aria-label="Pixel Island, catalogo"><span class="brand-mark" aria-hidden="true">P</span> Pixel Island</a>
     <a class="header-link" href="../">← Tutti i giochi</a>
   </header>
   <main class="music-client">
     <div class="music-topline">
       <form class="music-search" id="musicSearchForm" role="search" autocomplete="off">
-        <label class="visually-hidden" for="musicQuery">Cerca brani, artisti e playlist</label>
+        <label class="visually-hidden" for="musicQuery">Link YouTube o Spotify, oppure ricerca su YouTube</label>
         <span class="music-search-icon" aria-hidden="true">⌕</span>
-        <input id="musicQuery" name="q" type="search" placeholder="Cerca brani, artisti e playlist" aria-controls="musicSuggestions" aria-expanded="false">
-        <button type="submit">Cerca</button>
-        <div class="music-suggestions" id="musicSuggestions" role="listbox" hidden></div>
+        <input id="musicQuery" name="q" type="search" placeholder="Incolla un link o cerca su YouTube">
+        <button type="submit">Apri</button>
       </form>
     </div>
 
     <div class="music-workspace">
       <nav class="music-sidebar" aria-label="Navigazione musicale">
         <div class="music-nav" role="group" aria-label="Sezioni">
-          <button class="music-nav-button is-active" type="button" data-view="home" aria-current="page">Per te</button>
-          <button class="music-nav-button" type="button" data-view="trending">Tendenze</button>
-          <button class="music-nav-button" type="button" data-view="search">Cerca</button>
+          <button class="music-nav-button is-active" type="button" data-view="home" aria-current="page">Player</button>
           <button class="music-nav-button" type="button" data-view="library">La tua raccolta</button>
         </div>
         <section class="music-sidebar-section" aria-labelledby="quickSearchHeading">
-          <h2 id="quickSearchHeading">Scopri</h2>
+          <h2 id="quickSearchHeading">Cerca su YouTube</h2>
           <div class="music-quick-links" id="quickSearches">
             <button type="button" data-query="hit italiani">Hit italiani</button>
             <button type="button" data-query="pop internazionale">Pop</button>
@@ -46,77 +43,32 @@
       </nav>
 
       <section class="music-main" aria-labelledby="musicViewTitle">
-        <div class="music-view-heading">
-          <h2 id="musicViewTitle">Per te</h2>
-        </div>
-        <div class="music-filters" id="musicFilters" role="group" aria-label="Tipo di risultati" hidden>
-          <button class="is-active" type="button" data-filter="music_songs" aria-pressed="true">Brani</button>
-          <button type="button" data-filter="music_playlists" aria-pressed="false">Playlist</button>
-        </div>
-        <section class="music-shelf" id="homePlaylistsSection" aria-labelledby="homePlaylistsHeading" hidden>
-          <div class="music-shelf-heading">
-            <div>
-                            <h3 id="homePlaylistsHeading">Le tue playlist</h3>
-            </div>
-            <span class="music-shelf-count" id="homePlaylistCount"></span>
-          </div>
-          <div class="music-results music-playlist-shelf" id="homePlaylists"></div>
+        <div class="music-view-heading"><h2 id="musicViewTitle">Player ufficiale</h2></div>
+        <section class="info-card" id="musicHelp" aria-labelledby="musicHelpHeading">
+          <h3 id="musicHelpHeading">Come funziona</h3>
+          <p>Incolla il link di un video o di una playlist YouTube, oppure di un brano, album o playlist Spotify. Il contenuto si apre nel player ufficiale del servizio.</p>
+          <p>Se scrivi solo un titolo o un artista, la ricerca si apre su YouTube in una nuova scheda. Puoi salvare i collegamenti nella raccolta locale del browser.</p>
         </section>
-        <section class="spotify-import" id="spotifyImport" aria-labelledby="spotifyImportHeading" hidden>
-          <h3 id="spotifyImportHeading">Le tue playlist Spotify</h3>
-          <form id="spotifyForm">
-            <label class="visually-hidden" for="spotifyUrl">Link condiviso della playlist Spotify</label>
-            <input id="spotifyUrl" name="spotifyUrl" type="url" placeholder="https://open.spotify.com/playlist/…" required>
-            <button type="submit">Aggiungi playlist</button>
-          </form>
-          <p id="spotifyStatus" role="status" aria-live="polite">Aggiungi una playlist condivisibile per ritrovarla qui.</p>
-          <details class="spotify-converter">
-            <summary>Converti i brani in una playlist Piped</summary>
-            <p>Spotify non condivide la lista dei brani tramite il solo link. Puoi caricare un CSV esportato da <a href="https://exportify.net/" target="_blank" rel="noopener noreferrer">Exportify</a>, oppure incollare i brani manualmente. Fino a 200 brani, convertiti automaticamente a blocchi.</p>
-            <form id="spotifyConvertForm">
-              <label for="spotifyConvertUrl">Link della playlist Spotify
-                <input id="spotifyConvertUrl" type="url" placeholder="https://open.spotify.com/playlist/…" required>
-              </label>
-              <label for="spotifyCsvFile">File CSV della playlist
-                <input id="spotifyCsvFile" type="file" accept=".csv,text/csv">
-              </label>
-              <label for="spotifyTrackList">Oppure elenco brani, uno per riga
-                <textarea id="spotifyTrackList" rows="4" placeholder="Titolo del brano - Nome artista&#10;Altro brano - Altro artista"></textarea>
-              </label>
-              <button type="submit">Trova versioni su YouTube</button>
-            </form>
-            <p id="spotifyConvertStatus" role="status" aria-live="polite"></p>
-          </details>
-        </section>
-        <p class="music-status" id="musicStatus" role="status" aria-live="polite">Carico le tendenze…</p>
+        <p class="music-status" id="musicStatus" role="status" aria-live="polite">Nessun contenuto selezionato.</p>
         <div class="music-results" id="musicResults"></div>
       </section>
 
       <aside class="music-player-panel" aria-labelledby="playerHeading">
         <div class="music-player-heading">
           <div>
-                        <h2 id="playerHeading">Scegli un brano</h2>
+            <h2 id="playerHeading">Scegli un contenuto</h2>
             <p class="music-player-artist" id="playerArtist"></p>
           </div>
-          <a class="music-open-link" id="playerOpenLink" href="https://piped.video/" target="_blank" rel="noopener noreferrer" hidden>Apri ↗</a>
+          <a class="music-open-link" id="playerOpenLink" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" hidden>Apri ↗</a>
         </div>
         <div class="music-player-frame" id="musicStage">
           <img class="music-player-artwork" id="playerArtwork" alt="" referrerpolicy="no-referrer" hidden>
-          <div class="music-player-empty" id="playerPlaceholder">
-            <span aria-hidden="true">♫</span>
-          </div>
-          <iframe id="musicFrame" title="Player musicale" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen hidden></iframe>
+          <div class="music-player-empty" id="playerPlaceholder"><span aria-hidden="true">♫</span></div>
+          <iframe id="musicFrame" title="Player musicale ufficiale" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen hidden></iframe>
         </div>
-        <audio class="music-audio" id="musicAudio" controls preload="none" hidden></audio>
         <p class="music-player-load-status" id="playerLoadStatus" role="status" aria-live="polite" hidden></p>
-        <div class="music-queue-controls" id="musicQueueControls" hidden>
-          <button type="button" id="previousTrack" aria-label="Brano precedente">←</button>
-          <span id="queuePosition">1 / 1</span>
-          <button type="button" id="nextTrack" aria-label="Brano successivo">→</button>
-          <button type="button" id="repeatQueue" aria-label="Ripetizione disattivata" title="Cambia modalità di ripetizione">↻</button>
-          <button type="button" id="shuffleQueue" aria-label="Attiva riproduzione casuale" aria-pressed="false" title="Riproduzione casuale">⇄</button>
-        </div>
-        <p class="music-player-note" id="musicPlayerNote"></p>
+        <button class="music-save-button" id="saveCurrent" type="button" hidden>+ Raccolta</button>
+        <p class="music-player-note" id="musicPlayerNote">Pixel Island usa soltanto gli embed ufficiali e non estrae stream audio o video.</p>
       </aside>
     </div>
   </main>
