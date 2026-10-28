@@ -369,6 +369,12 @@ body.pseudo-fullscreen-active { overflow: hidden; overscroll-behavior: none; }
   .music-player-panel { grid-column: 1; width: 100%; box-shadow: 4px 4px 0 var(--shadow-color); }
   .music-results { grid-template-columns: repeat(auto-fill,minmax(min(100%,145px),1fr)); }
 }
+@media (max-width: 520px) {
+  .site-header { flex-wrap: wrap; gap: 10px; }
+  .header-actions { width: 100%; justify-content: flex-start; gap: 8px; }
+  .music-nav-link { padding: 8px 10px; }
+  .theme-toggle { margin-left: auto; }
+}
 @media (max-width: 420px) {
   .catalog-tools { grid-template-columns: 1fr; }
   .catalog-tools label:first-child { grid-column: auto; }
