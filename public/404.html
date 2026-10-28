@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f1ebdf">
-  <title>Pagina non trovata — Epstein Island</title>
+  <title>Pagina non trovata — Pixel Island</title>
   <style>
     :root { color-scheme: light; font-family: "Avenir Next", system-ui, sans-serif; background: #f1ebdf; color: #17140f; }
     body { box-sizing: border-box; min-height: 100vh; margin: 0; padding: 10vh max(24px, calc((100vw - 900px) / 2)); background: radial-gradient(rgba(23,20,15,.13) 1px, transparent 1.4px) 0 0 / 22px 22px, #f1ebdf; }
@@ -24,7 +24,7 @@
   <script>
     (() => {
       let theme;
-      try { theme = localStorage.getItem('epstein-theme'); } catch {}
+      try { theme = localStorage.getItem('pixel-theme'); } catch {}
       theme ||= matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       document.documentElement.dataset.theme = theme;
     })();
