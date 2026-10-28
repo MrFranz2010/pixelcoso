@@ -11,7 +11,7 @@
 - `public/index.html` is the catalog page.
 - `public/assets/games.js` is the source of game metadata and page URL generation.
 - `public/assets/catalog.js` renders the catalog; `player.js` and `fullscreen.js` power game pages.
-- `public/giochi/` contains game pages. Use `public/giochi/polytrack/index.html` as the template for another game.
+- `public/giochi/` contains game pages. Use `public/giochi/snake/index.html` as the template for another game.
 - `public/builds/` contains game build assets. Treat supplied/vendor build files as immutable unless a task explicitly targets them.
 - `.github/workflows/pages.yml` publishes the static site from `public/`.
 
