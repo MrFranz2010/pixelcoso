@@ -31,8 +31,8 @@
   --ink: #17140f;
   --dot: rgba(23,20,15,.13);
   --line: rgba(23,20,15,.18);
-  --radius: 6px;
-  --shadow: 4px 4px 0 var(--shadow-color);
+  --radius: 10px;
+  --shadow: 5px 5px 0 var(--shadow-color);
   --font-display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
 }
@@ -70,8 +70,9 @@ a { color: var(--text); text-decoration-color: var(--accent); text-decoration-th
 a:hover { color: var(--accent-text); }
 button, input, select, textarea { font: inherit; }
 :focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
-.site-header { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px clamp(16px,4vw,52px); border-bottom: 2px solid var(--border); background: var(--bg); }
+.site-header { position: relative; z-index: 2; display: flex; align-items: center; justify-content: flex-start; gap: 14px; padding: 14px clamp(16px,4vw,52px); border-bottom: 2px solid var(--border); background: var(--bg); }
 .brand { display: flex; align-items: center; gap: 12px; color: var(--text); text-decoration: none; font-size: 1.15rem; font-weight: 800; letter-spacing: -.02em; text-transform: uppercase; }
+.site-header > .brand { margin-right: auto; }
 .brand:hover { color: var(--text); }
 .brand-mark { display: grid; place-items: center; width: 38px; height: 38px; border: 2px solid var(--border); border-radius: 4px; background: var(--sun); box-shadow: 3px 3px 0 var(--shadow-color); color: var(--text); font-size: 20px; transform: rotate(-6deg); transition: transform .18s ease; }
 .brand:hover .brand-mark { transform: rotate(6deg); }
@@ -339,6 +340,8 @@ body.pseudo-fullscreen-active { overflow: hidden; overscroll-behavior: none; }
   .music-topline { grid-template-columns: 1fr; gap: 18px; }
 }
 @media (max-width: 700px) {
+  .site-header { flex-wrap: wrap; gap: 10px; }
+  .site-header > .brand { width: 100%; margin-right: 0; }
   .header-tag { display: none; }
   .brand { font-size: .95rem; }
   .brand-mark { width: 34px; height: 34px; font-size: 18px; }

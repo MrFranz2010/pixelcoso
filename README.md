@@ -1,9 +1,11 @@
-# Epstein Island
-Catalogo statico di giochi web, anime e musica, pubblicato su GitHub Pages senza framework o passaggi di build. La home presenta il catalogo; ogni gioco ha una pagina dedicata e viene eseguito in un iframe locale, senza redirect verso altri siti.
+# FranzHUB
+Catalogo statico di giochi web con chat e musica, pubblicato su GitHub Pages senza framework o passaggi di build. La home presenta il catalogo; ogni gioco ha una pagina dedicata e viene eseguito in un iframe locale, senza redirect verso altri siti.
 
 ## Struttura
 
-- `public/index.html`: home con giochi aperti di recente, preferiti e filtri in una barra laterale adattiva.
+- `public/index.html`: home FranzHUB con giochi aperti di recente, preferiti e filtri in una barra laterale adattiva.
+- `public/chat/index.html`: pagina della chat del sito.
+- `public/musica/index.html`: pagina per cercare e ascoltare musica.
 - `public/assets/games.js`: definizioni dei giochi, parte del codice del sito.
 - `public/assets/player.js`: player condiviso, caricamento, riprova e crediti.
 - `public/assets/fullscreen.js`: schermo intero con fallback per browser non compatibili.
@@ -19,7 +21,7 @@ Catalogo statico di giochi web, anime e musica, pubblicato su GitHub Pages senza
 - `public/builds/tiger-ball/`: wrapper per l’iframe Tiger Ball Online fornito da 4j.com.
 - `.github/workflows/pages.yml`: pubblicazione automatica della cartella statica su GitHub Pages quando si aggiorna `main`.
 
-Il catalogo si modifica nei file del progetto: non ci sono pannelli admin o registrazioni. Il sito è statico; preferiti, cronologia e profili sono conservati nel browser. Alcuni giochi e servizi informativi usano risorse esterne e richiedono una connessione.
+Il catalogo si modifica nei file del progetto: non ci sono pannelli admin o registrazioni. Il sito è statico; preferiti, cronologia e profili sono conservati nel browser. Alcuni giochi e servizi, inclusa la chat, usano risorse esterne e richiedono una connessione.
 
 ## Funzioni del catalogo
 
@@ -87,7 +89,3 @@ HexGL di Thibaut Despoulain e Magic Maze Web di Daniel Dahl sono port HTML5 open
 ## PolyTrack
 
 La pagina di PolyTrack permette di creare profili locali; record e livree vengono conservati separatamente nel `localStorage` del browser. I profili non sono account e non si sincronizzano tra dispositivi. La classifica per pista usa Supabase e richiede una connessione; i tempi sono inviati dal gioco eseguito nel browser e non sono verificati contro trucchi o modifiche locali.
-
-## Anime
-
-La pagina anime cerca informazioni nel catalogo pubblico Kitsu e salva i preferiti nel browser. Il player può ricevere uno stream tramite `window.resolveAuthorizedAnimeStream({ animeId, title, episode })`; configurare questa funzione con un provider che autorizzi la riproduzione. Il codice Comet non è collegato ai risultati di ricerca.

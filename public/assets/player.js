@@ -84,7 +84,7 @@ reloadBtn.addEventListener('click', startGame);
 setupFullscreen(gameShell);
 
 if (game) {
-  document.title = `${game.title} — Epstein Island`;
+  document.title = `${game.title} — FranzHUB`;
   document.querySelector('meta[name="description"]').content = game.description;
   document.getElementById('gameTitle').textContent = game.title.toUpperCase();
   const accent = document.createElement('span');
