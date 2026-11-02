@@ -1,3 +1,4 @@
+import './report-issue.js';
 import { games, gamePage, siteRoot, siteUrl } from './games.js';
 import { setupFullscreen } from './fullscreen.js';
 

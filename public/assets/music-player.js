@@ -1,3 +1,5 @@
+import './report-issue.js';
+
 const PIPED_APIS = [
   "https://api.piped.private.coffee",
   "https://pipedapi.kavin.rocks",
@@ -47,6 +49,7 @@ const playerLoadStatus = document.querySelector("#playerLoadStatus");
 let activeView = "home";
 let searchFilter = "music_songs";
 let currentQuery = "";
+let libraryDataWarning = false;
 let suggestionTimer;
 let suggestionRequest = 0;
 let library = loadLibrary();
@@ -98,17 +101,33 @@ audio.addEventListener("error", () => {
 function loadLibrary() {
   try {
     const saved = JSON.parse(localStorage.getItem(LIBRARY_KEY) || "[]");
-    return Array.isArray(saved) ? saved.filter((item) => item && item.id && item.title) : [];
-  } catch {
+    if (!Array.isArray(saved)) throw new TypeError("La raccolta salvata non è una lista.");
+    const validItems = saved.filter((item) => item && typeof item === "object"
+      && typeof item.id === "string"
+      && typeof item.title === "string"
+      && (["stream", "playlist", "spotify-playlist"].includes(item.type)
+        || (item.type === "converted-playlist" && Array.isArray(item.tracks)
+          && item.tracks.every((track) => track && typeof track === "object"
+            && track.type === "stream" && typeof track.id === "string" && typeof track.videoId === "string"))));
+    libraryDataWarning = validItems.length !== saved.length;
+    if (libraryDataWarning) console.error("Alcuni elementi non validi della raccolta musicale sono stati ignorati.");
+    return validItems;
+  } catch (error) {
+    console.error("Impossibile leggere la raccolta musicale salvata.", error);
+    libraryDataWarning = true;
     return [];
   }
 }
 
-function saveLibrary() {
+function saveLibrary(nextLibrary) {
   try {
-    localStorage.setItem(LIBRARY_KEY, JSON.stringify(library));
-  } catch {
-    setStatus("La raccolta non può essere salvata su questo dispositivo.", true);
+    localStorage.setItem(LIBRARY_KEY, JSON.stringify(nextLibrary));
+    library = nextLibrary;
+    libraryDataWarning = false;
+    return true;
+  } catch (error) {
+    console.error("Impossibile salvare la raccolta musicale.", error);
+    return false;
   }
 }
 
@@ -566,21 +585,24 @@ function renderItems(items, emptyMessage = "Nessun risultato trovato.", target =
 function renderHomePlaylists() {
   const playlists = library.filter((item) => ["playlist", "spotify-playlist", "converted-playlist"].includes(item.type));
   homePlaylistsSection.hidden = activeView !== "home" || playlists.length === 0;
-  homePlaylistCount.textContent = `${playlists.length} ${playlists.length === 1 ? "playlist" : "playlist"}`;
+  homePlaylistCount.textContent = `${playlists.length} playlist`;
   if (playlists.length) renderItems(playlists, "", homePlaylists);
 }
 
 function toggleSaved(item) {
   const key = itemKey(item);
   const index = library.findIndex((saved) => itemKey(saved) === key);
+  const nextLibrary = [...library];
   if (index >= 0) {
-    library.splice(index, 1);
-    setStatus(`Rimosso dalla raccolta: ${item.title}`);
+    nextLibrary.splice(index, 1);
   } else {
-    library.unshift(item);
-    setStatus(`Aggiunto alla raccolta: ${item.title}`);
+    nextLibrary.unshift(item);
   }
-  saveLibrary();
+  if (!saveLibrary(nextLibrary)) {
+    setStatus("La raccolta non può essere salvata su questo dispositivo.", true);
+    return;
+  }
+  setStatus(`${index >= 0 ? "Rimosso dalla" : "Aggiunto alla"} raccolta: ${item.title}`);
   if (activeView === "library") renderLibrary();
   else if (activeView === "home") renderHomePlaylists();
 }
@@ -604,7 +626,9 @@ async function loadTrending() {
 function renderLibrary() {
   const savedItems = [...library];
   renderItems(savedItems, "La raccolta è vuota. Salva un brano o una playlist dai risultati.");
-  setStatus(`${savedItems.length} elementi salvati su questo dispositivo`);
+  setStatus(libraryDataWarning
+    ? `${savedItems.length} elementi caricati. Alcuni dati salvati non validi sono stati ignorati.`
+    : `${savedItems.length} elementi salvati su questo dispositivo`, libraryDataWarning);
 }
 
 function setSpotifyStatus(message, isError = false) {
@@ -646,8 +670,10 @@ async function addSpotifyPlaylist(value) {
     const metadata = await response.json();
     spotifyItem.title = metadata.title || spotifyItem.title;
     spotifyItem.thumbnail = metadata.thumbnail_url || "";
-    library.unshift(spotifyItem);
-    saveLibrary();
+    if (!saveLibrary([spotifyItem, ...library])) {
+      setSpotifyStatus("Playlist recuperata, ma non salvata su questo dispositivo.", true);
+      return;
+    }
     spotifyUrlInput.value = "";
     setSpotifyStatus(`Aggiunta: ${spotifyItem.title}`);
     renderLibrary();
@@ -815,9 +841,11 @@ async function convertSpotifyPlaylist(urlValue, trackListValue, csvValue = "") {
       spotifyPlaylistId: playlistId,
       tracks: matches,
     };
-    library = library.filter((item) => itemKey(item) !== itemKey(convertedPlaylist));
-    library.unshift(convertedPlaylist);
-    saveLibrary();
+    const nextLibrary = [convertedPlaylist, ...library.filter((item) => itemKey(item) !== itemKey(convertedPlaylist))];
+    if (!saveLibrary(nextLibrary)) {
+      setConversionStatus("Playlist convertita, ma non salvata su questo dispositivo.", true);
+      return;
+    }
     spotifyUrlInput.value = urlValue.trim();
     spotifyCsvInput.value = "";
     spotifyTrackList.value = "";

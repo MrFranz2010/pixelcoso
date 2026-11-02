@@ -1,3 +1,4 @@
+import './report-issue.js';
 import { games, gamePage, siteUrl } from './games.js';
 
 const gameList = document.getElementById('gameList');
@@ -173,7 +174,6 @@ function createCard(game) {
     author.rel = 'noopener noreferrer';
     author.className = 'game-author';
     author.textContent = 'Fonte ↗';
-    author.addEventListener('click', (event) => event.stopPropagation());
     cardFooter.append(author);
   }
   cardFooter.append(makeGameLink(game, 'Gioca ora →', 'card-action'));

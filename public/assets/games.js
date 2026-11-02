@@ -419,5 +419,6 @@ export function siteUrl(path) {
 }
 
 export function gamePage(game) {
+  if (game.slug === 'retrogaming') return siteUrl('/emulatore/');
   return siteUrl(`/giochi/${game.slug}/`);
 }

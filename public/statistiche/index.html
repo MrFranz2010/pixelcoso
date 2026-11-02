@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f1ebdf">
+  <meta name="description" content="Statistiche personali e backup dei dati locali di FranzHUB.">
+  <title>Statistiche — FranzHUB</title>
+  <link rel="stylesheet" href="../assets/site.css">
+  <script src="../assets/theme.js"></script>
+  <script type="module" src="../assets/report-issue.js"></script>
+  <script type="module" src="../assets/statistics.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../" aria-label="FranzHUB, catalogo"><span class="brand-mark" aria-hidden="true">F</span> FranzHUB</a>
+    <a class="header-link" href="../">← Tutti i giochi</a>
+  </header>
+  <main>
+    <section class="intro">
+      <p class="eyebrow">I tuoi dati</p>
+      <h1>STATISTICHE<span class="accent">.</span></h1>
+      <p>Riepilogo personale e strumenti per trasferire i dati salvati su questo browser.</p>
+    </section>
+    <section class="stats-grid" aria-label="Riepilogo statistiche">
+      <article class="stats-card"><span class="stats-value" id="visitsCount">—</span><h2>Pagine gioco aperte</h2></article>
+      <article class="stats-card"><span class="stats-value" id="favoritesCount">—</span><h2>Giochi preferiti</h2></article>
+      <article class="stats-card"><span class="stats-value" id="recentCount">—</span><h2>Giochi recenti</h2></article>
+    </section>
+    <p class="muted stats-note" id="statsNote">Le aperture vengono conteggiate da quando attivi questa funzione e restano solo su questo browser.</p>
+    <section class="stats-section" aria-labelledby="favoriteHeading">
+      <div class="section-heading"><h2 id="favoriteHeading">I tuoi preferiti</h2></div>
+      <div class="stats-list" id="favoriteList"></div>
+      <p class="info-card" id="emptyFavoriteList" hidden>Non hai ancora salvato giochi tra i preferiti.</p>
+    </section>
+    <section class="stats-section" aria-labelledby="popularHeading">
+      <div class="section-heading"><h2 id="popularHeading">Giochi aperti più spesso</h2></div>
+      <div class="stats-list" id="popularList"></div>
+      <p class="info-card" id="emptyPopularList" hidden>Le aperture registrate appariranno qui.</p>
+    </section>
+    <section class="stats-section" aria-labelledby="backupHeading">
+      <div class="section-heading"><h2 id="backupHeading">Backup e trasferimento</h2></div>
+      <div class="info-card backup-panel">
+        <p>Esporta i dati locali in un file JSON per conservarli o spostarli su un altro dispositivo. Il file può contenere preferiti, cronologia, progressi dei giochi, profili PolyTrack, raccolta musicale e altre impostazioni salvate in questo sito.</p>
+        <p>I dati restano sul dispositivo: non vengono caricati online. I salvataggi che alcuni giochi conservano in IndexedDB, come quelli dell’emulatore, non sono inclusi.</p>
+        <div class="backup-actions">
+          <button class="primary" id="exportBackup" type="button">Esporta backup</button>
+          <button id="chooseBackup" type="button">Importa backup</button>
+          <input id="importBackup" type="file" accept="application/json,.json" hidden>
+        </div>
+        <p class="backup-status" id="backupStatus" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
